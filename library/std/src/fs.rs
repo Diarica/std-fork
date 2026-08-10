@@ -2594,6 +2594,7 @@ impl AsInner<fs_imp::FilePermissions> for Permissions {
 
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg(target_os = "android")]
+#[stable(feature = "rust1", since = "1.0.0")]
 impl Iterator for ReadDir {
     type Item = io::Result<DirEntry>;
 
@@ -2618,6 +2619,7 @@ impl Iterator for ReadDir {
 }
 
 #[cfg(not(target_os = "android"))]
+#[stable(feature = "rust1", since = "1.0.0")]
 impl Iterator for ReadDir {
     type Item = io::Result<DirEntry>;
 

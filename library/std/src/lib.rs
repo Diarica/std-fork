@@ -627,8 +627,7 @@ pub mod f64;
 
 #[macro_use]
 pub mod thread;
-#[unstable(feature = "fibre_job", issue = "none",
-           reason = "fibre engine job system — work in progress")]
+#[stable(feature = "fibre_job", since = "1.99.0")]
 pub mod job;
 pub mod ascii;
 pub mod backtrace;

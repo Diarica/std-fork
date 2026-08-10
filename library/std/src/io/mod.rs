@@ -343,6 +343,11 @@ pub use self::{
     copy::copy,
     stdio::{Stderr, StderrLock, Stdin, StdinLock, Stdout, StdoutLock, stderr, stdin, stdout},
 };
+// Fibre Engine extension: read-only file mmap（Windows MapViewOfFile / Unix mmap / fallback read）。
+#[stable(feature = "io_mmap", since = "1.99.0")]
+pub mod mmap;
+#[stable(feature = "io_mmap", since = "1.99.0")]
+pub use self::mmap::MmapFile;
 
 mod buffered;
 pub(crate) mod copy;

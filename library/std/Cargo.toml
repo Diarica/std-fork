@@ -57,10 +57,15 @@ object = { version = "0.39", default-features = false, optional = true, features
 
 [target.'cfg(any(windows, target_os = "cygwin"))'.dependencies.windows-link]
 path = "../windows_link"
-
-[dev-dependencies]
-rand = { version = "0.9.0", default-features = false, features = ["alloc"] }
-rand_xorshift = "0.4.0"
+# Fibre Engine: build.rs compiles Marl (vendor/marl) via cc::Build.
+# 不带 parallel——cc parallel → jobserver → getrandom(std) 传递依赖会被 build-std
+# 以 std 图方式编译 → E0152 duplicate core lang item。
+[build-dependencies]
+cc = { version = "1.2" }
+# rand 链会在 build-std 时意外拉入 getrandom（host target core 冲突 E0152）——
+# std 自测不需要（引擎不跑 std 测试），临时禁用；如需可重新启用。
+# rand = { version = "0.9.0", default-features = false, features = ["alloc"] }
+# rand_xorshift = "0.4.0"
 
 [target.'cfg(any(all(target_family = "wasm", not(any(unix, target_os = "wasi"))), target_os = "xous", target_os = "vexos", all(target_vendor = "fortanix", target_env = "sgx")))'.dependencies]
 dlmalloc = { version = "0.2.10", features = ['rustc-dep-of-std'] }

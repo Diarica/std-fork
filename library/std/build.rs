@@ -1,6 +1,5 @@
 use std::env;
 use std::path::Path;
-
 fn main() {
     println!("cargo:rerun-if-changed=build.rs");
     let target_arch = env::var("CARGO_CFG_TARGET_ARCH").expect("CARGO_CFG_TARGET_ARCH was not set");
@@ -101,9 +100,6 @@ fn main() {
     // ── Fibre Engine: compile Marl + emit backend cfg ────
     compile_marl_if_supported();
 }
-
-/// Compile the Marl C++ scheduler + C API wrapper.
-/// Emits `fibre_backend="marl"` when successful.
 fn compile_marl_if_supported() {
     let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap_or_default();
     if target_os != "windows" && target_os != "linux" && target_os != "macos" {
@@ -131,7 +127,6 @@ fn compile_marl_if_supported() {
     build.compile("marl_std");
     println!("cargo:rustc-cfg=fibre_backend=\"marl\"");
 }
-
 /// Link Android NDK libraries when building for Android.
 #[cfg(target_os = "android")]
 fn link_android_ndk() {
