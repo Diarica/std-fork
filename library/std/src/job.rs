@@ -87,6 +87,7 @@ fn io_init(n: usize) {
                     }
                 }
             }).expect("io: spawn"));
+    }
     unsafe { IO = Some(inner); IO_HANDLES = Some(h); }
 }
 
